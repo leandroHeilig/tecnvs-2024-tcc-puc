@@ -46,11 +46,17 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  role          String?
+
+  created_at    DateTime? @default(now())
+  updated_at    DateTime? @default(now())
+
   accounts      Account[]
   sessions      Session[]
 
   contracts     Contracts[]
   customers     Customer[]
+  orders        Orders[]
 }
 
 model VerificationToken {
@@ -67,6 +73,7 @@ model Customer {
   phone      String
   email      String
   address    String?
+
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -74,6 +81,7 @@ model Customer {
   User       User?  @relation(fields: [userId], references: [id])
 
   contracts Contracts[]
+  orders    Orders[]
 }
 
 model Contracts {
@@ -90,14 +98,50 @@ model Contracts {
   User          User?     @relation(fields: [userId], references: [id])
 }
 
-model newsletter {
+model Newsletter {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
-  email         String
-  created_at    DateTime? @default(now())
-  updated_at    DateTime? @default(now())
+  email         String     @unique
+  created_at    DateTime?  @default(now())
+  updated_at    DateTime?  @default(now())
 }
 
-model services {
+model Services {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId   
-  description   String         
+  description   String      
+  price         Float   
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  categoryId   String?   @db.ObjectId
+  Category     Category?  @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId   
+  name       String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now()) 
+  
+  services Services[]
+}
+
+model Orders {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId  
+  userId         String?   @db.ObjectId
+  customerId     String?   @db.ObjectId
+  status         Boolean   @default(false)  
+  draft          Boolean   @default(false)  
+  description    String
+  start          String
+  closure        String
+
+  customer      Customer? @relation(fields: [customerId], references: [id])
+
+  
+  User          User?     @relation(fields: [userId], references: [id])
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 }
