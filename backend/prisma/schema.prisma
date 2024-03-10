@@ -51,7 +51,6 @@ model User {
 
   contracts     Contracts[]
   customers     Customer[]
-
 }
 
 model VerificationToken {
@@ -89,4 +88,16 @@ model Contracts {
 
   userId        String?   @db.ObjectId
   User          User?     @relation(fields: [userId], references: [id])
+}
+
+model newsletter {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  email         String
+  created_at    DateTime? @default(now())
+  updated_at    DateTime? @default(now())
+}
+
+model services {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId   
+  description   String         
 }
