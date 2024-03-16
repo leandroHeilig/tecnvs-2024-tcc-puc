@@ -24,9 +24,6 @@ class AuthUserService {
     const currentPassword = user.password
     let passwordMatch = true
     
-    console.log(currentPassword)
-    console.log(password)
-
     //console.log(hashedPassword, password)
     //const passwordMatch = await compare(password, user.password as string)
    // console.log(passwordMatch)
