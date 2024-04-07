@@ -10,6 +10,7 @@ import { DetailUserController } from './controllers/user/DetailUserController'
 import { CreateCategoryController } from './controllers/category/CreateCategoryController'
 import { ListCategoryController } from './controllers/category/ListCategoryController'
 import { CreateProductController } from './controllers/consultancy/CreateProductConttroller'
+import { ListByCategoryController } from './controllers/consultancy/ListByCategoryController'
 import { CreateNewsLetterController } from './controllers/newsLetter/CreateNewsLetterController'
 
 import uploadConfig from './config/multer'
@@ -29,6 +30,7 @@ router.get('/category', isAuthenticated, new ListCategoryController().handle)
 
 // Rotas de serviços (produtos) da consultoria
 router.post('/product', isAuthenticated, new CreateProductController().handle)
+router.get('/category/service', isAuthenticated, new ListByCategoryController().handle)
 
 // Rota para cadastrar um e-mail na newsLetter
 router.post('/newsletter', new CreateNewsLetterController().handle)
