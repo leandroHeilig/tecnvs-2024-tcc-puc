@@ -12,11 +12,12 @@ import { ListCategoryController } from './controllers/category/ListCategoryContr
 import { CreateProductController } from './controllers/consultancy/CreateProductConttroller'
 import { ListByCategoryController } from './controllers/consultancy/ListByCategoryController'
 import { CreateNewsLetterController } from './controllers/newsLetter/CreateNewsLetterController'
-
-import uploadConfig from './config/multer'
+import { CreateOrderController } from './controllers/order/CreateOrderController'
+import { CreateCustomerController } from './controllers/customer/CreateCustomerController'
+import { DeleteOrderController } from './controllers/order/DeleteOrderController'
 
 const router = Router()
-
+//import uploadConfig from './config/multer'
 //const upload = multer(uploadConfig.upload("../temp"))
 
 // Rotas do usuário
@@ -35,4 +36,11 @@ router.get('/category/service', isAuthenticated, new ListByCategoryController().
 // Rota para cadastrar um e-mail na newsLetter
 router.post('/newsletter', new CreateNewsLetterController().handle)
 
-export  {router}
+// Rota para gerar uma ordem de serviço
+router.post('/order', isAuthenticated, new CreateOrderController().handle)
+router.delete('/order',isAuthenticated, new DeleteOrderController().handle)
+
+// Rota para gerar um cliente]
+router.post('/customer',isAuthenticated, new CreateCustomerController().handle)
+
+export  { router }

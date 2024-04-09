@@ -133,13 +133,12 @@ model Orders {
   userId         String?   @db.ObjectId
   customerId     String?   @db.ObjectId
   status         Boolean   @default(false)  
-  draft          Boolean   @default(false)  
+  //draft          Boolean   @default(false)  
   description    String
-  start          String
-  closure        String
+  start          String?
+  closure        String?
 
   customer      Customer? @relation(fields: [customerId], references: [id])
-
   
   User          User?     @relation(fields: [userId], references: [id])
 
