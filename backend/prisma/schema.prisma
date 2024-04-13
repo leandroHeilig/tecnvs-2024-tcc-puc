@@ -55,9 +55,9 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  contracts     Contracts[]
+  orders        Order[]
   customers     Customer[]
-  orders        Orders[]
+  appointments  Appointments[]
 }
 
 model VerificationToken {
@@ -81,23 +81,10 @@ model Customer {
   userId     String? @db.ObjectId
   User       User?  @relation(fields: [userId], references: [id])
 
-  contracts Contracts[]
-  orders    Orders[]
+  appointments  Appointments[]
+  orders    Order[]
 }
 
-model Contracts {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  description   String
-  details       String
-  created_at    DateTime? @default(now())
-  updated_at    DateTime? @default(now())
-
-  customerId    String?   @db.ObjectId
-  customer      Customer? @relation(fields: [customerId], references: [id])
-
-  userId        String?   @db.ObjectId
-  User          User?     @relation(fields: [userId], references: [id])
-}
 
 model Newsletter {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
@@ -106,16 +93,35 @@ model Newsletter {
   updated_at    DateTime?  @default(now())
 }
 
+model Appointments {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId   
+  description   String 
+  start         String?         
+  closure       String?
+  status        Boolean?
+
+  userId        String?   @db.ObjectId
+  User          User?     @relation(fields: [userId], references: [id])
+
+  customerId   String?    @db.ObjectId
+  Customer     Customer?  @relation(fields: [customerId], references: [id])
+  
+  created_at    DateTime? @default(now())
+  updated_at    DateTime? @default(now())
+}
+
 model Services {
-  id            String     @id @default(auto()) @map("_id") @db.ObjectId   
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId   
   description   String      
   price         Float   
+
+  categoryId   String?   @db.ObjectId
+  Category     Category?  @relation(fields: [categoryId], references: [id])
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  categoryId   String?   @db.ObjectId
-  Category     Category?  @relation(fields: [categoryId], references: [id])
+  item Item[]
 }
 
 model Category {
@@ -128,20 +134,40 @@ model Category {
   services Services[]
 }
 
-model Orders {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId  
-  userId         String?   @db.ObjectId
-  customerId     String?   @db.ObjectId
-  status         Boolean   @default(false)  
-  //draft          Boolean   @default(false)  
-  description    String
-  start          String?
-  closure        String?
 
-  customer      Customer? @relation(fields: [customerId], references: [id])
-  
-  User          User?     @relation(fields: [userId], references: [id])
+model Order{
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId  
+  status      Boolean?        @default(false)
+  draft       Boolean?        @default(true)
+  start       String?         
+  closure     String?
+  description String?
+
+  userId       String?        @db.ObjectId
+  user         User?          @relation(fields: [userId], references: [id])
+
+  customerId   String?        @db.ObjectId
+  customer     Customer?      @relation(fields: [customerId], references: [id])
+
+  created_at   DateTime?      @default(now())
+  updated_at   DateTime?      @default(now())
+
+  items Item[]
+}
+
+model Item{
+  id String    @id @default(auto()) @map("_id") @db.ObjectId  
+  amount Int
+
+  orderId   String? @db.ObjectId
+  order     Order?    @relation(fields: [orderId], references: [id])
+
+  serviceId   String?   @db.ObjectId
+  services   Services?  @relation(fields: [orderId], references: [id])
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 }
+
+
+
