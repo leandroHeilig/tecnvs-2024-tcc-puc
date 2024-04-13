@@ -18,6 +18,7 @@ import { DeleteOrderController } from './controllers/order/DeleteOrderController
 import { CreateAppointmentController } from './controllers/appointments/CreateAppointmentController'
 import { DeleteAppointmentController } from './controllers/appointments/DeleteAppointmentController'
 import { ListAppointmentsByCustomerController } from './controllers/appointments/ListAppointmentsByCustomerController'
+import { ListAppointmentsByUserController } from './controllers/appointments/ListAppointmentsByUserController'
 
 const router = Router()
 //import uploadConfig from './config/multer'
@@ -46,6 +47,7 @@ router.delete('/order', isAuthenticated, new DeleteOrderController().handle)
 router.post('/appointment', isAuthenticated, new CreateAppointmentController().handle)
 router.delete('/appointment', isAuthenticated, new DeleteAppointmentController().handle)
 router.get('/appointment/customer', isAuthenticated, new ListAppointmentsByCustomerController().handle)
+router.get('/appointment/user', isAuthenticated, new ListAppointmentsByUserController().handle)
 
 // Rota para gerar um cliente
 router.post('/customer',isAuthenticated, new CreateCustomerController().handle)
