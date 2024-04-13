@@ -13,14 +13,15 @@ class CreateOrderService {
   
   async execute({ customer, user, description, status, start,closure }: OrderRequest) {
 
-    const order = await prismaClient.orders.create({
+    const order = await prismaClient.order.create({
       data:{
         customerId: customer,
         userId: user,
         description: description,
         status: status,
         start: start,
-        closure: closure
+        closure: closure,
+        items: {}
       },
       select: {
         id: true,

@@ -5,6 +5,9 @@ class CreateOrderController {
   async handle(req: Request, res: Response) {
     const { customer, user, description, status, start, closure } = req.body
 
+    console.log(customer)
+    console.log(user)
+
     const createOrderService = new CreateOrderService()
     
     const order = await createOrderService.execute({
