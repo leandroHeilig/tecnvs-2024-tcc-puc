@@ -15,6 +15,7 @@ import { CreateNewsLetterController } from './controllers/newsLetter/CreateNewsL
 import { CreateOrderController } from './controllers/order/CreateOrderController'
 import { CreateCustomerController } from './controllers/customer/CreateCustomerController'
 import { DeleteOrderController } from './controllers/order/DeleteOrderController'
+import { CreateAppointmentController } from './controllers/appointments/CreateAppointmentController'
 
 const router = Router()
 //import uploadConfig from './config/multer'
@@ -38,7 +39,9 @@ router.post('/newsletter', new CreateNewsLetterController().handle)
 
 // Rota para gerar uma ordem de serviço
 router.post('/order', isAuthenticated, new CreateOrderController().handle)
-router.delete('/order',isAuthenticated, new DeleteOrderController().handle)
+router.delete('/order', isAuthenticated, new DeleteOrderController().handle)
+
+router.post('/appointment', isAuthenticated, new CreateAppointmentController().handle)
 
 // Rota para gerar um cliente]
 router.post('/customer',isAuthenticated, new CreateCustomerController().handle)
