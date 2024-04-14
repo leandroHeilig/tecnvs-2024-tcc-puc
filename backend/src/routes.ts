@@ -12,9 +12,9 @@ import { ListCategoryController } from './controllers/category/ListCategoryContr
 import { CreateProductController } from './controllers/consultancy/CreateProductConttroller'
 import { ListByCategoryController } from './controllers/consultancy/ListByCategoryController'
 import { CreateNewsLetterController } from './controllers/newsLetter/CreateNewsLetterController'
-import { CreateOrderController } from './controllers/order/CreateOrderController'
+
 import { CreateCustomerController } from './controllers/customer/CreateCustomerController'
-import { DeleteOrderController } from './controllers/order/DeleteOrderController'
+
 import { CreateAppointmentController } from './controllers/appointments/CreateAppointmentController'
 import { DeleteAppointmentController } from './controllers/appointments/DeleteAppointmentController'
 import { ListAppointmentsByCustomerController } from './controllers/appointments/ListAppointmentsByCustomerController'
@@ -41,8 +41,6 @@ router.get('/category/service', isAuthenticated, new ListByCategoryController().
 router.post('/newsletter', new CreateNewsLetterController().handle)
 
 // Rota para gerar uma ordem de serviço
-router.post('/order', isAuthenticated, new CreateOrderController().handle)
-router.delete('/order', isAuthenticated, new DeleteOrderController().handle)
 
 router.post('/appointment', isAuthenticated, new CreateAppointmentController().handle)
 router.delete('/appointment', isAuthenticated, new DeleteAppointmentController().handle)
