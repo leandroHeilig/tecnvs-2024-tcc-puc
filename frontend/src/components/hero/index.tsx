@@ -6,7 +6,7 @@ export function Hero() {
     <>
       <section>
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center absolute z-10">
-          <div className="flex flex-col w-full text-left pt-64 text-white px-10">
+          <div className="flex flex-col w-full text-left pt-64 text-purple-700 px-10">
             <h1 className=" text-5xl font-bold leading-tight text">
               O Portal do Analista <br />
             </h1>
@@ -17,7 +17,7 @@ export function Hero() {
           <div
             className="h-screen min-w-full opacity-95"
             style={{
-              backgroundImage: "url(./img/hero-01.jpg)",
+              backgroundImage: "url(./img/hero-02.jpg)",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
