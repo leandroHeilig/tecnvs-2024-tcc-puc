@@ -16,6 +16,11 @@
   flex-direction: column;
   padding: 2rem 1.5rem;
 
+  h1 {
+    color: var(--white);
+    padding: 1rem;
+  }
+
   form {
     width: 90%;
     display: flex;
@@ -29,10 +34,11 @@
 }
 
 .text {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   color: var(--white);
   cursor: pointer;
 }
+
 @media(max-width: 620px) {
   .login {
     width: 90%;

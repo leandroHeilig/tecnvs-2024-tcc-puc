@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+
 import styles from '@/styles/home.module.scss'
 
 import logoImg from '../../public/logo-2-branco.png'
@@ -16,6 +18,7 @@ export default function Home() {
       <div className={styles.containerCenter}>
         <Image src={logoImg} alt="Logo site" />
         <div className={styles.login}>
+          <h1>Portal do Analista</h1>
           <form>
             <Input placeholder="Digite o seu e-mail" type="text" />
             <Input placeholder="Informa a sua senha" type="password" />
@@ -23,7 +26,11 @@ export default function Home() {
               Login
             </Button>
           </form>
-          <a className={styles.text}>Não possui uma conta? cadastre-se</a>
+          <Link href="/signup" legacyBehavior>
+            <span className={styles.text}>
+              Não possui uma conta? cadastre-se
+            </span>
+          </Link>
         </div>
       </div>
     </>
