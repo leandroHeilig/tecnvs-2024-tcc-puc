@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/home.module.scss'
 
 import logoImg from '../../public/logo-2-branco.png'
 
@@ -16,14 +16,14 @@ export default function Home() {
       <div className={styles.containerCenter}>
         <Image src={logoImg} alt="Logo site" />
         <div className={styles.login}>
-          <Input placeholder="Digite o seu e-mail" type='text' />
-          <Input placeholder="Informa a sua senha" type='password' />
-          <Button
-            type='submit'
-            loading={false}
-          >
-            Login
-          </Button>
+          <form>
+            <Input placeholder="Digite o seu e-mail" type="text" />
+            <Input placeholder="Informa a sua senha" type="password" />
+            <Button type="submit" loading={false}>
+              Login
+            </Button>
+          </form>
+          <a className={styles.text}>Não possui uma conta? cadastre-se</a>
         </div>
       </div>
     </>
