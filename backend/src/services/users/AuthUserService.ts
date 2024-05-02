@@ -55,7 +55,7 @@ class AuthUserService {
       name: user.name,
       email: user.email,
       role: user.role,
-      toke: token
+      token: token
      }
   }
 }
