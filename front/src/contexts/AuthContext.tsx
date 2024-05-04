@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState } from 'react'
 import Router from 'next/router'
 import { destroyCookie, setCookie, parseCookies } from 'nookies'
+import { toast } from 'react-toastify'
 
 import { api } from '@/services/apiClient'
 
@@ -76,10 +77,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // deixar configurado o token para as demais requisições
       api.defaults.headers['Authorization'] = `Bearer ${token}`
 
+      // Notifica usuário
+      toast.success('Bem-vindo')
+
       // redireciona para página principal
       Router.push('/dashboard')
 
     } catch (error) {
+      toast.error('Erro ao acessar o Sistema. Verifique o seu e-mail e senha')
       console.log('erro ao acessar o login', error)
     }
   }
@@ -94,6 +99,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       console.log('ok. cadastrado')
+      toast.success('Conta criada com sucesso')
       Router.push('/')
 
     } catch (error) {
