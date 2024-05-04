@@ -102,7 +102,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       toast.success('Bem-vindo')
 
       // redireciona para página principal
-      Router.push('/dashboard')
+      Router.push("/dashboard");
 
     } catch (error) {
       toast.error('Erro ao acessar o Sistema. Verifique o seu e-mail e senha')
