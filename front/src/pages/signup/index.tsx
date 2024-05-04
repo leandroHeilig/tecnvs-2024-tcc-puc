@@ -6,6 +6,7 @@ import Link from "next/link";
 import styles from "@/styles/home.module.scss";
 import logoImg from "../../../public/logo-2-branco.png";
 
+import { toast } from 'react-toastify'
 
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
@@ -26,7 +27,7 @@ export default function SignUp() {
     event.preventDefault()
 
     if (name === '' || email === '' || password === '') {
-      alert('Por favor, preencha todos os campos')
+      toast.warning('Por favor preencha todos os campos')
       return
     }
 
