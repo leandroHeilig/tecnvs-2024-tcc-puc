@@ -1,4 +1,5 @@
 import { useContext, useState, FormEvent } from 'react'
+//import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +10,7 @@ import logoImg from '../../public/logo-2-branco.png'
 
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { canSSRGuest } from '@/utils/canSSRGuest'
 
 import { AuthContext } from '@/contexts/AuthContext'
 
@@ -75,3 +77,17 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRGuest(async (context) => {
+  return {
+    props:{}
+  }
+})
+/*
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log('teste SERVER SIDE PROPS')
+  return {
+    props: {}
+  }
+}
+*/
