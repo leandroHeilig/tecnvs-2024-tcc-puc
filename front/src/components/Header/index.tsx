@@ -21,7 +21,7 @@ export function Header() {
             <a href="">Categoria</a>
           </Link>
 
-          <Link href="/services" legacyBehavior>
+          <Link href="/product" legacyBehavior>
             <a href="">Serviços</a>
           </Link>
 
