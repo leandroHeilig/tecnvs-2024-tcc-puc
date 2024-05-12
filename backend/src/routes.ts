@@ -16,11 +16,14 @@ import { CreateNewsLetterController } from './controllers/newsLetter/CreateNewsL
 import { CreateCustomerController } from './controllers/customer/CreateCustomerController'
 
 import { CreateAppointmentController } from './controllers/appointments/CreateAppointmentController'
+import { AproveAppointmentController } from './controllers/appointments/AproveAppointmentController'
 import { DeleteAppointmentController } from './controllers/appointments/DeleteAppointmentController'
 import { ListAppointmentsByCustomerController } from './controllers/appointments/ListAppointmentsByCustomerController'
 import { ListAppointmentsByUserController } from './controllers/appointments/ListAppointmentsByUserController'
 import { ListAppointmentsController } from './controllers/appointments/ListAppointmentsController'
 import { ListAppointmentDetailController } from './controllers/appointments/ListAppointmentDetailController'
+import { AddItemController } from './controllers/appointments/AddItemController'
+import { RemoveItemController } from './controllers/appointments/RemoveItemController'
 
 const router = Router()
 //import uploadConfig from './config/multer'
@@ -45,6 +48,9 @@ router.post('/newsletter', new CreateNewsLetterController().handle)
 // Rota para gerar uma ordem de serviço
 
 router.post('/appointment', isAuthenticated, new CreateAppointmentController().handle)
+router.put('/appointment/approval', isAuthenticated, new AproveAppointmentController().handle)
+router.post('/appointment/add', isAuthenticated, new AddItemController().handle)
+router.delete('/appointment/remove', isAuthenticated, new RemoveItemController().handle)
 router.delete('/appointment', isAuthenticated, new DeleteAppointmentController().handle)
 router.get('/appointment/customer', isAuthenticated, new ListAppointmentsByCustomerController().handle)
 router.get('/appointment/user', isAuthenticated, new ListAppointmentsByUserController().handle)

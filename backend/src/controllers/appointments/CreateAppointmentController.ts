@@ -4,12 +4,11 @@ import { CreateAppointmentService } from '../../services/appointments/CreateAppo
 class CreateAppointmentController {
   async handle(req: Request, res: Response) {
 
-    const { serviceId,description, start, status, closure, userId, customerId } = req.body
+    const { description, start, status, closure, userId, customerId } = req.body
 
     const createAppointment = new CreateAppointmentService()
 
     const appointment = await createAppointment.execute({
-      serviceId,
       description,
       start,
       status,
