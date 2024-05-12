@@ -55,7 +55,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  orders        Order[]
   customers     Customer[]
   appointments  Appointments[]
 }
@@ -82,7 +81,6 @@ model Customer {
   User       User?  @relation(fields: [userId], references: [id])
 
   appointments  Appointments[]
-  orders    Order[]
 }
 
 
@@ -108,6 +106,8 @@ model Appointments {
 
   customerId   String?    @db.ObjectId
   Customer     Customer?  @relation(fields: [customerId], references: [id])
+
+  items        Item[]
   
   created_at    DateTime? @default(now())
   updated_at    DateTime? @default(now())  
@@ -126,6 +126,7 @@ model Services {
   updated_at DateTime?    @default(now())
 
   Appointments Appointments[]
+  items        Item[]
 }
 
 model Category {
@@ -139,23 +140,18 @@ model Category {
 }
 
 
-model Order{
-  id          String          @id @default(auto()) @map("_id") @db.ObjectId  
-  status      Boolean?        @default(false)
-  draft       Boolean?        @default(true)
-  start       String?         
-  closure     String?
-  description String?
+model Item {
+  id                 String          @id @default(auto()) @map("_id") @db.ObjectId  
+  amount             Int
 
-  userId       String?        @db.ObjectId
-  user         User?          @relation(fields: [userId], references: [id])
+  appointments        Appointments?   @relation(fields: [appointment_id], references: [id])
+  appointment_id      String?         @db.ObjectId
 
-  customerId   String?        @db.ObjectId
-  customer     Customer?      @relation(fields: [customerId], references: [id])
+  service           Services?        @relation(fields: [service_id], references: [id])
+  service_id        String?          @db.ObjectId
 
-  created_at   DateTime?      @default(now())
-  updated_at   DateTime?      @default(now())
-
+  created_at         DateTime?      @default(now())
+  updated_at         DateTime?      @default(now())
 }
 
 
