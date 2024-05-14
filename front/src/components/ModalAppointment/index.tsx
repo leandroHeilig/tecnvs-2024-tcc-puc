@@ -7,7 +7,7 @@ import { AppointmentItemProps } from '@/pages/dashboard'
 interface ModalAppointmentProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  appointment: AppointmentItemProps
+  appointment: AppointmentItemProps[]
 }
 
 export function ModalAppointment({
@@ -15,6 +15,7 @@ export function ModalAppointment({
   onRequestClose,
   appointment,
 }: ModalAppointmentProps) {
+
   const customStyles = {
     content: {
       top: "50%",
@@ -26,6 +27,8 @@ export function ModalAppointment({
       transform: "translate(-50%, -50%)",
     },
   };
+
+  console.log('teste',appointment[0])
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
       <button
@@ -36,11 +39,19 @@ export function ModalAppointment({
       >
         <FiX size={45} color="#fff" />
       </button>
+
       <div className={styles.container}>
         <h2>Detalhe do Apontamento</h2>
-        <span className={styles.tabel}>
-          Ordem de Serviço: { appointment.description}
+        <span className={styles.table}>
+          Ordem de Serviço: {appointment[0].appointments.id}
         </span>
+        <span>{ appointment[0].appointments.description}</span>
+        {appointment.map(item => (
+          <section key={item.id} className={styles.containerItem}>
+            <span className={styles.description}>{ item.service.description }</span>
+
+          </section>
+        ))}
       </div>
     </Modal>
   );

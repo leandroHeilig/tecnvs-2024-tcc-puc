@@ -18,16 +18,29 @@ type AppointmentProps = {
   serviceId: string;
   customerId: string;
   status: boolean;
+  customer: {
+    id: string;
+    name: string;
+    email: string;
+  }
 }
 
 export type AppointmentItemProps = {
-  id: String;
+  id: string;
+  appointment_id: string;
+  service_id: string;
   description: string;
-  start: string;
-  closure: string;
-  serviceId: string;
-  customerId: string;
-  status: boolean;
+  service: {
+    id: string;
+    description: string;
+    price: number;
+  };
+  appointments: {
+    id: string;
+    description: string;
+    start: string;
+    close: string;    
+  }
 };
 
 interface HomeProps {
@@ -37,7 +50,7 @@ interface HomeProps {
 export default function Dashboard({ appointments }: HomeProps) {
   const [appointmentList, setAppointmentList] = useState(appointments || [])
 
-  const [modalItem, setModalItem] = useState<AppointmentItemProps>();
+  const [modalItem, setModalItem] = useState<AppointmentItemProps[]>();
   const [modalVisible, setModalVisible] = useState(false)
   
   function handleCloseModal() {
@@ -51,6 +64,8 @@ export default function Dashboard({ appointments }: HomeProps) {
         appointment_id: appointment_id,
       },
     });
+
+    console.log(response.data)
 
     setModalItem(response.data);
     setModalVisible(true);
@@ -82,6 +97,7 @@ export default function Dashboard({ appointments }: HomeProps) {
                 >
                   <div className={styles.tag}></div>
                   <span>{item.id}</span>
+
                 </button>
               </section>
             ))}
@@ -103,7 +119,7 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
   const response = await apiClient.get("/appointment");
- // console.log(response.data)
+ console.log(response.data)
   return {
     props: {
       appointments: response.data
