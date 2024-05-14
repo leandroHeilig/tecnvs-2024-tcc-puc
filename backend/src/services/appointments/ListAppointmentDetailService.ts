@@ -6,9 +6,13 @@ interface AppointmentRequest {
 
 class ListAppointmentDetailService {
   async execute({ appointment_id }: AppointmentRequest) {
-    const appointment = prismaClient.appointments.findMany({
+    const appointment = await prismaClient.item.findMany({
       where: {
-        id: appointment_id
+        appointment_id: appointment_id
+      },
+      include: {
+        service: true,
+        appointments:true
       }
     })
 

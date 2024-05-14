@@ -5,8 +5,8 @@ class ListAppointmentDetailController {
   async handle(req: Request, res: Response) {
     const appointment_id = req.query.appointment_id as string
 
-    const listByUser = new ListAppointmentDetailService()
-    const appointmentDetail = await listByUser.execute({ appointment_id })
+    const listDetails = new ListAppointmentDetailService()
+    const appointmentDetail = await listDetails.execute({ appointment_id })
 
     return res.json(appointmentDetail)    
   }

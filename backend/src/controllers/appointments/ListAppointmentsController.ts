@@ -3,8 +3,7 @@ import { ListAppointmentService  } from '../../services/appointments/ListAppoint
 
 class ListAppointmentsController{
   async handle(req: Request, res: Response) {
-    const user_id = req.query.user_id as string
-
+    
     const listAppointments = new ListAppointmentService()
     const appointments = await listAppointments.execute()
 
