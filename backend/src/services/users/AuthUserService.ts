@@ -23,6 +23,7 @@ class AuthUserService {
     // Verifica senha
     const currentPassword = user.password
     let passwordMatch = true
+    const JWT_SECRET = 'dc02b67afa24d3cd376fab5605d6b22d'
     
     //console.log(hashedPassword, password)
     //const passwordMatch = await compare(password, user.password as string)
@@ -43,7 +44,7 @@ class AuthUserService {
         email: user.email,
         role: user.role,
       },
-      'dc02b67afa24d3cd376fab5605d6b22d',//process.env.JWT_SECRET,
+      JWT_SECRET,
       {
         subject: user.id,
         expiresIn:'30d'

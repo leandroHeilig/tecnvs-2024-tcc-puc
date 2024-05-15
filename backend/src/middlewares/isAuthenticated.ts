@@ -14,11 +14,12 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
   }
 
   const [, token] = authToken.split(" ")
+  const JWT_SECRET = 'dc02b67afa24d3cd376fab5605d6b22d'
 
   try {
     const { sub } = verify(
       token,
-     'dc02b67afa24d3cd376fab5605d6b22d'//process.env.JWT_SECRET
+     JWT_SECRET
     ) as PayLoad
 
     req.user_id = sub
