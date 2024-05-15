@@ -18,7 +18,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
   try {
     const { sub } = verify(
       token,
-      process.env.JWT_SECRET
+     'dc02b67afa24d3cd376fab5605d6b22d'//process.env.JWT_SECRET
     ) as PayLoad
 
     req.user_id = sub
