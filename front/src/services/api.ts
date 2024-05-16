@@ -7,7 +7,7 @@ export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx)
 
   const api = axios.create({
-    baseURL: 'http://localhost:21005',
+    baseURL: 'https://tecnvs-2024-tcc-puc.vercel.app',
     headers: {
       Authorization: `Bearer ${cookies['@nextauth.token']}`
     }
