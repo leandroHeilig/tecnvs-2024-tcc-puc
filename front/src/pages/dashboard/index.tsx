@@ -71,6 +71,25 @@ export default function Dashboard({ appointments }: HomeProps) {
     setModalVisible(true);
   }
 
+  async function handleAprove(id: string) {
+    //alert('Aprovar OS: '+id)
+    const apiClient = setupAPIClient()
+    await apiClient.put("/appointment/approval", {
+      appointment_id: id
+    })
+
+    const response = await apiClient.get("/appointment")
+    setAppointmentList(response.data)
+
+    setModalVisible(false)
+  }
+
+  async function handleRefresh() {
+    const apiClient = setupAPIClient()
+    const response = await apiClient.get("/appointment");
+    setAppointmentList(response.data);
+  }
+
   Modal.setAppElement('#__next')
 
   return (
@@ -84,10 +103,18 @@ export default function Dashboard({ appointments }: HomeProps) {
           <div className={styles.containerHeader}>
             <h1>Ordens de Serviço</h1>
             <button>
-              <FiRefreshCcw size={25} color="#0000ff" />
+              <FiRefreshCcw size={25} color="#0000ff" onClick={ handleRefresh }/>
             </button>
           </div>
           <article className={styles.listAppointments}>
+
+            {appointmentList.length === 0 && (
+              <span className={styles.emptyList}>
+                Nenhum apontamento / ordem de serviço pendente de aprovação...
+              </span>
+            )}
+
+
             {appointmentList.map((item) => (
               <section key={item.id} className={styles.item}>
                 <button
@@ -97,7 +124,6 @@ export default function Dashboard({ appointments }: HomeProps) {
                 >
                   <div className={styles.tag}></div>
                   <span>{item.id}</span>
-
                 </button>
               </section>
             ))}
@@ -108,6 +134,7 @@ export default function Dashboard({ appointments }: HomeProps) {
             isOpen={modalVisible}
             onRequestClose={handleCloseModal}
             appointment={modalItem}
+            handleAproveOrder={handleAprove}
           />
         )}
       </div>

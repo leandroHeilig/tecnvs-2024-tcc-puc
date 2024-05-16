@@ -7,15 +7,16 @@ import { AppointmentItemProps } from '@/pages/dashboard'
 interface ModalAppointmentProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  appointment: AppointmentItemProps[]
+  appointment: AppointmentItemProps[];
+  handleAproveOrder: (id: string)=> void
 }
 
 export function ModalAppointment({
   isOpen,
   onRequestClose,
   appointment,
+  handleAproveOrder,
 }: ModalAppointmentProps) {
-
   const customStyles = {
     content: {
       top: "50%",
@@ -28,7 +29,7 @@ export function ModalAppointment({
     },
   };
 
-  console.log('teste',appointment[0])
+  console.log("teste", appointment[0]);
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
       <button
@@ -37,21 +38,32 @@ export function ModalAppointment({
         className="react-modal-close"
         style={{ background: "transparent", border: 0 }}
       >
-        <FiX size={45} color="#fff" />
+        <FiX size={45} color="#fe9300" />
       </button>
 
       <div className={styles.container}>
         <h2>Detalhe do Apontamento</h2>
         <span className={styles.table}>
           Ordem de Serviço: {appointment[0].appointments.id}
+          <h3>Descrição das atividades:</h3>
+          <span className={styles.observation}>
+            {appointment[0].appointments.description}
+          </span>
         </span>
-        <span>{ appointment[0].appointments.description}</span>
-        {appointment.map(item => (
-          <section key={item.id} className={styles.containerItem}>
-            <span className={styles.description}>{ item.service.description }</span>
 
+        {appointment.map((item) => (
+          <section key={item.id} className={styles.containerItem}>
+            <span className={styles.description}>
+              {item?.service?.description}
+            </span>
           </section>
         ))}
+        <button
+          className={styles.buttonAprove}
+          onClick={() => handleAproveOrder(appointment[0].appointments.id)}
+        >
+          Aprovar Apontamento
+        </button>
       </div>
     </Modal>
   );
