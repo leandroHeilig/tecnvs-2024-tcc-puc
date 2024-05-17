@@ -17,6 +17,11 @@ export function Header() {
           <img src="/logo-2-branco.png" alt="logo" />
         </Link>
         <nav className={styles.menuNav}>
+
+          <Link href="/customer" legacyBehavior>
+            <a href="">Cliente</a>
+          </Link>
+
           <Link href="/category" legacyBehavior>
             <a href="">Categoria</a>
           </Link>
