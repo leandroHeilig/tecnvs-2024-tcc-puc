@@ -17,7 +17,6 @@ export function Header() {
           <img src="/logo-2-branco.png" alt="logo" />
         </Link>
         <nav className={styles.menuNav}>
-
           <Link href="/customer" legacyBehavior>
             <a href="">Cliente</a>
           </Link>
@@ -30,7 +29,7 @@ export function Header() {
             <a href="">Serviços</a>
           </Link>
 
-          <Link href="/appointments" legacyBehavior>
+          <Link href="/orders" legacyBehavior>
             <a href="">Apontamentos</a>
           </Link>
 
