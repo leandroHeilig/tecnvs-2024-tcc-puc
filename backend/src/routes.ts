@@ -25,6 +25,7 @@ import { ListAppointmentsController } from './controllers/appointments/ListAppoi
 import { ListAppointmentDetailController } from './controllers/appointments/ListAppointmentDetailController'
 import { AddItemController } from './controllers/appointments/AddItemController'
 import { RemoveItemController } from './controllers/appointments/RemoveItemController'
+import { ListAllProductsController } from './controllers/consultancy/ListAllProductsController'
 
 const router = Router()
 //import uploadConfig from './config/multer'
@@ -42,6 +43,7 @@ router.get('/category', isAuthenticated, new ListCategoryController().handle)
 // Rotas de serviços (produtos) da consultoria
 router.post('/product', isAuthenticated, new CreateProductController().handle)
 router.get('/category/service', isAuthenticated, new ListByCategoryController().handle)
+router.get('/product', isAuthenticated, new ListAllProductsController().handle)
 
 // Rota para cadastrar um e-mail na newsLetter
 router.post('/newsletter', new CreateNewsLetterController().handle)

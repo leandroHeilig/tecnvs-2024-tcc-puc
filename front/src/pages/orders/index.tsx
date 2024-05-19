@@ -8,6 +8,7 @@ import { setupAPIClient } from "@/services/api";
 import { useState, FormEvent, ChangeEvent } from "react";
 
 import { toast } from "react-toastify";
+import { TextArea} from '@/components/ui/Input'
 
 interface OrderProps {
   customerList: ItemCustomer[];
@@ -97,6 +98,7 @@ export default function Order({ customerList, serviceList }: OrderProps) {
         <main className={styles.container}>
           <h1>Novo Apontamento</h1>
           <form className={styles.form} onSubmit={handleRegister}>
+            <p>Selecione o Cliente</p>
             <select value={customerSelected} onChange={handleChangeCustomer}>
               {customers.map((item, index) => {
                 return (
@@ -106,14 +108,27 @@ export default function Order({ customerList, serviceList }: OrderProps) {
                 );
               })}
             </select>
-            <input
-              type="text"
+            <TextArea
+              //type="text"
               className={styles.input}
               placeholder="Digite suas atividades"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-
+            <input
+              type="text"
+              className={styles.input}
+              placeholder="Hora de Inicio"
+              value={description}
+              onChange={(e) => setStart(e.target.value)}
+            />
+            <input
+              type="text"
+              className={styles.input}
+              placeholder="Hora de Finalização"
+              value={description}
+              onChange={(e) => setStart(e.target.value)}
+            />
 
             <button className={styles.buttonAdd} type="submit">
               Cadastrar
@@ -128,10 +143,12 @@ export default function Order({ customerList, serviceList }: OrderProps) {
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
   const response = await apiClient.get("/customer");
+  const services = await apiClient.get("/products");
 
   return {
     props: {
-
+      customerList: response.data,
+      serviceList:[]
     },
   };
 });
