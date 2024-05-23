@@ -15,6 +15,7 @@ import { CreateNewsLetterController } from './controllers/newsLetter/CreateNewsL
 
 import { CreateCustomerController } from './controllers/customer/CreateCustomerController'
 import { ListCustomerController } from './controllers/customer/ListCustomerController'
+import { ListCsutomerByIdController } from './controllers/customer/ListCsutomerByIdController'
 
 import { CreateAppointmentController } from './controllers/appointments/CreateAppointmentController'
 import { AproveAppointmentController } from './controllers/appointments/AproveAppointmentController'
@@ -63,5 +64,6 @@ router.get('/appointment', isAuthenticated, new ListAppointmentsController().han
 // Rota para gerar um cliente
 router.post('/customer', isAuthenticated, new CreateCustomerController().handle)
 router.get('/customer', isAuthenticated, new ListCustomerController().handle)
+router.get('/customer/detail', isAuthenticated, new ListCsutomerByIdController().handle)
 
 export  { router }
