@@ -29,7 +29,7 @@ export function ModalAppointment({
     },
   };
 
-  console.log("teste", appointment[0]);
+
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
       <button
@@ -44,7 +44,8 @@ export function ModalAppointment({
       <div className={styles.container}>
         <h2>Detalhe do Apontamento</h2>
         <span className={styles.table}>
-          Ordem de Serviço: {appointment[0].appointments.id}
+          Ordem de Serviço: {appointment[0]?.appointments?.id}
+          
           <h3>Descrição das atividades:</h3>
           <span className={styles.observation}>
             {appointment[0].appointments.description}

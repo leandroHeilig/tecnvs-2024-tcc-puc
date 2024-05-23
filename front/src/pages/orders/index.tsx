@@ -37,10 +37,12 @@ export default function Order({ customerList, serviceList }: OrderProps) {
 
   const [description, setDescription] = useState("");
   const [start, setStart] = useState("");
-  const [clouser, setClousre] = useState("");
+  const [clouser, setClouser ] = useState("");
   const [status, setStatus] = useState(false);
-  const [customer, setCustomer] = useState("");
+  const [customer, setCustomer] = useState(0);
   const [user, setUser] = useState("");
+
+  console.log(user)
 
   function handleChangeCustomer(event) {
     setCustomerSelected(event.target.value);
@@ -57,25 +59,26 @@ export default function Order({ customerList, serviceList }: OrderProps) {
       if (
         description === " " ||
         start === "" ||
-        clouser === "" ||
-        customer === "" ||
-        user === ""
+        clouser === ""  
       ) {
-        toast.warning("Preencha todos os campos");
+        toast.warning("Preencha todos os campos")      
+        
         return;
       }
 
       const apiClient = setupAPIClient();
-      await apiClient.post("/appointment", {
+      const appointement = await apiClient.post("/appointment", {
         description: description,
         start: start,
         clouser: clouser,
         status: status,
         customerId: customers[customerSelected].id,
-
       });
 
+      console.log(appointement.data.id)
+
       toast.success("OS aberta com sucesso");
+
     } catch (error) {
       console.log(error);
       toast.error("Falha ao cadastrar o registro.");
@@ -83,9 +86,9 @@ export default function Order({ customerList, serviceList }: OrderProps) {
 
     setDescription("");
     setStart("");
-    setClousre('')
+    setClouser("");
     setStatus(false)
-    setCustomer('');
+    setCustomer(0);
   }
 
   return (
@@ -108,10 +111,9 @@ export default function Order({ customerList, serviceList }: OrderProps) {
                 );
               })}
             </select>
-            <TextArea
-              //type="text"
+            <textarea
+              placeholder="Descreva seu produto..."
               className={styles.input}
-              placeholder="Digite suas atividades"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -119,15 +121,15 @@ export default function Order({ customerList, serviceList }: OrderProps) {
               type="text"
               className={styles.input}
               placeholder="Hora de Inicio"
-              value={description}
+              value={start}
               onChange={(e) => setStart(e.target.value)}
             />
             <input
               type="text"
               className={styles.input}
               placeholder="Hora de Finalização"
-              value={description}
-              onChange={(e) => setStart(e.target.value)}
+              value={clouser}
+              onChange={(e) => setClouser(e.target.value)}
             />
 
             <button className={styles.buttonAdd} type="submit">
@@ -143,12 +145,12 @@ export default function Order({ customerList, serviceList }: OrderProps) {
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
   const response = await apiClient.get("/customer");
-  const services = await apiClient.get("/products");
+  const services = await apiClient.get("/product");
 
   return {
     props: {
       customerList: response.data,
-      serviceList:[]
+      serviceList: services.data
     },
   };
 });

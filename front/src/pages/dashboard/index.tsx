@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, ReactNode } from 'react'
 import Modal from 'react-modal'
 import { canSSRAuth } from '@/utils/canSSRAuth'
 import Head from 'next/head'
@@ -52,11 +52,25 @@ export default function Dashboard({ appointments }: HomeProps) {
 
   const [modalItem, setModalItem] = useState<AppointmentItemProps[]>();
   const [modalVisible, setModalVisible] = useState(false)
+
+   appointmentList.map((item) => {
+    console.log('Leandro',item.customerId)
+  })
   
   function handleCloseModal() {
     setModalVisible(false)
   }  
 
+  async function handleCustomerDetail(customer_id: string) {
+    const apiClient = setupAPIClient();
+    const response = await apiClient.get("", {
+      params: {
+        customer_id: customer_id,
+      },
+    });
+  }
+
+  
   async function handleOpenModalView(appointment_id: string) {
     const apiClient = setupAPIClient();
     const response = await apiClient.get("/appointment/detail", {
@@ -64,8 +78,6 @@ export default function Dashboard({ appointments }: HomeProps) {
         appointment_id: appointment_id,
       },
     });
-
-    console.log(response.data)
 
     setModalItem(response.data);
     setModalVisible(true);
@@ -103,27 +115,31 @@ export default function Dashboard({ appointments }: HomeProps) {
           <div className={styles.containerHeader}>
             <h1>Ordens de Serviço</h1>
             <button>
-              <FiRefreshCcw size={25} color="#0000ff" onClick={ handleRefresh }/>
+              <FiRefreshCcw size={25} color="#0000ff" onClick={handleRefresh} />
             </button>
           </div>
           <article className={styles.listAppointments}>
-
             {appointmentList.length === 0 && (
               <span className={styles.emptyList}>
                 Nenhum apontamento / ordem de serviço pendente de aprovação...
               </span>
             )}
 
-
-            {appointmentList.map((item) => (
+            {appointmentList.map( (item) => (
+              
               <section key={item.id} className={styles.item}>
+               
                 <button
                   onClick={() => {
                     handleOpenModalView(item.id);
+                    console.log(item);
                   }}
                 >
                   <div className={styles.tag}></div>
-                  <span>{item.id}</span>
+
+                  <span>{item.description}</span>
+                  <span>{ item?.customer?.email}</span>                  
+               
                 </button>
               </section>
             ))}
@@ -146,7 +162,7 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
   const response = await apiClient.get("/appointment");
- console.log(response.data)
+ console.log('apontamento',response.data)
   return {
     props: {
       appointments: response.data
