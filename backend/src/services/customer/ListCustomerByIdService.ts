@@ -12,6 +12,7 @@ class ListCustomerByIdService {
         id: customer_id
       }
     })
+    console.log(findCustomerById)
 
     return findCustomerById;
 
