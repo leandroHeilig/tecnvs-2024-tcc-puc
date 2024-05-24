@@ -4,6 +4,7 @@ import { ListCustomerByIdService } from '../../services/customer/ListCustomerByI
 class ListCsutomerByIdController {
   async handle(req: Request, res: Response) {
     const customer_id = req.query.customer_id as string
+    
     const listCustomerById = new ListCustomerByIdService()
     const customerDetails = await listCustomerById.execute({ customer_id })
 

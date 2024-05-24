@@ -6,14 +6,13 @@ interface CustomerRequest {
 
 class ListCustomerByIdService {
   async execute({ customer_id }: CustomerRequest) {
-    const findCustomerById = await prismaClient.customer.findFirst({
+    const findCustomerById = await prismaClient.customer.findMany({
       where: {
         id: customer_id
       },
       select: {
         name: true,
         email: true,
-
       }
     })
    
