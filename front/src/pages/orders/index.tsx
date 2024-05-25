@@ -22,9 +22,8 @@ type ItemCustomer = {
 
 type ItemService = {
   id: string;
-  name: string;
+  description: string;
 };
-
 
 
 export default function Order({ customerList, serviceList }: OrderProps) {
@@ -77,6 +76,16 @@ export default function Order({ customerList, serviceList }: OrderProps) {
 
       console.log(appointement.data.id)
 
+      // grava item da OS
+
+      if (appointement) {
+        const itemService = await apiClient.post("/Appointment/add", {
+          appointment_id: appointement.data.id,
+          service_id: services[serviceSelected].id,
+          amount:1
+        });
+      }
+
       toast.success("OS aberta com sucesso");
 
     } catch (error) {
@@ -89,6 +98,7 @@ export default function Order({ customerList, serviceList }: OrderProps) {
     setClouser("");
     setStatus(false)
     setCustomer(0);
+    setCustomerSelected(0);
   }
 
   return (
@@ -111,8 +121,18 @@ export default function Order({ customerList, serviceList }: OrderProps) {
                 );
               })}
             </select>
+            <select value={serviceSelected} onChange={handleChangeService}>
+              {services.map((item, index) => {
+                return (
+                  <option key={item.id} value={index}>
+                    {item.description}
+                  </option>
+                );
+              })}
+
+            </select>
             <textarea
-              placeholder="Descreva seu produto..."
+              placeholder="Descreva as atividades realizadas..."
               className={styles.input}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -144,6 +164,7 @@ export default function Order({ customerList, serviceList }: OrderProps) {
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
+
   const response = await apiClient.get("/customer");
   const services = await apiClient.get("/product");
 

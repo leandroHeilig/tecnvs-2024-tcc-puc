@@ -10,6 +10,11 @@ import { FiRefreshCcw } from 'react-icons/fi'
 
 import { setupAPIClient } from '@/services/api'
 
+type CustomerDetails = {
+  name: string;
+  email: string;
+}
+
 type AppointmentProps = {
   id: string;
   description: string;
@@ -49,9 +54,10 @@ interface HomeProps {
 
 export default function Dashboard({ appointments }: HomeProps) {
   const [appointmentList, setAppointmentList] = useState(appointments || [])
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails[]>()
 
   const [modalItem, setModalItem] = useState<AppointmentItemProps[]>();
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
 
    appointmentList.map((item) => {
     console.log('Leandro',item.customerId)
@@ -63,11 +69,13 @@ export default function Dashboard({ appointments }: HomeProps) {
 
   async function handleCustomerDetail(customer_id: string) {
     const apiClient = setupAPIClient();
-    const response = await apiClient.get("", {
+    const response = await apiClient.get("/customer/detail", {
       params: {
         customer_id: customer_id,
-      },
-    });
+      },      
+    })
+
+    setCustomerDetails(response.data);
   }
 
   
@@ -138,7 +146,8 @@ export default function Dashboard({ appointments }: HomeProps) {
                   <div className={styles.tag}></div>
 
                   <span>{item.description}</span>
-                  <span>{ item?.customer?.email}</span>                  
+                  <span>{item?.customer?.email}</span>    
+
                
                 </button>
               </section>

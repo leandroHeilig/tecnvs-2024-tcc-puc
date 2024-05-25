@@ -48,7 +48,7 @@ export function ModalAppointment({
           
           <h3>Descrição das atividades:</h3>
           <span className={styles.observation}>
-            {appointment[0].appointments.description}
+            {appointment[0]?.appointments?.description}
           </span>
         </span>
 
@@ -61,7 +61,7 @@ export function ModalAppointment({
         ))}
         <button
           className={styles.buttonAprove}
-          onClick={() => handleAproveOrder(appointment[0].appointments.id)}
+          onClick={() => handleAproveOrder(appointment[0]?.appointments.id)}
         >
           Aprovar Apontamento
         </button>
