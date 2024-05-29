@@ -171,7 +171,7 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
   const response = await apiClient.get("/appointment");
- console.log('apontamento',response.data)
+ //console.log('apontamento',response.data)
   return {
     props: {
       appointments: response.data
